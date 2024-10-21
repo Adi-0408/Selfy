@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selfie Capture</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        
+        video {
+            border: 2px solid #ccc;
+            width: 90%;
+            max-width: 300px;
+            height: auto;
+        }
+        
+        canvas {
+            display: none;
+        }
+        
+        img {
+            margin-top: 20px;
+            width: 90%;
+            max-width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Take a Selfie!</h1>
+    <video id="video" autoplay playsinline></video>
+    <button id="snap">Take Selfie</button>
+    <canvas id="canvas"></canvas>
+    <img id="selfie" alt="Your selfie" />
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const selfie = document.getElementById('selfie');
+        const snapButton = document.getElementById('snap');
+
+        // Access the user's webcam
+        navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: "user"
+                }
+            })
+            .then(stream => {
+                    video.srcObject = stream;
